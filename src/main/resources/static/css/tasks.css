@@ -1,0 +1,89 @@
+.headertext,
+.formcontainer{
+padding=40px;
+}
+
+
+#book1_list,
+#book2_list {
+width: 100%;
+height: 100%;
+overflow:hidden;
+overflow-y:scroll;
+}
+
+.form-control.active {
+width: 100%;
+overflow-y: scroll;
+height: 100%;
+resize:none;
+
+}
+.textarea-container{
+padding-top: 10px;
+height: 20%;
+}
+.list-container{
+padding-top: 10px;
+height: 60%;
+}
+html,
+body,
+.container-fluid.maincontainer
+{
+height: 100%;
+}
+.row{
+padding-top:10px;
+}
+.form-row
+{
+    margin-top:25px;
+}
+
+
+.form-row.gone
+{
+display: none;
+}
+
+.navbar{
+max-height: 5vh;
+height: 5vh;
+}
+
+.undernavTab{
+padding-top:15px;
+}
+
+.actionCell{
+    height:100%;
+    width:10%;
+    text-align:center;
+    vertical-align: middle;
+}
+.nameCell{
+    height:100%;
+    width:35%;
+    text-align:center;
+    vertical-align: middle;
+}
+.timeCell{
+    height:100%;
+    width:25%;
+    text-align:center;
+    vertical-align: middle;
+}
+.statusCell,
+.userCell{
+    height:100%;
+    width:10%;
+    text-align:center;
+    vertical-align: middle;
+}
+th:hover{
+background-color: yellow;
+cursor:pointer;
+}
+
+

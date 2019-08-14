@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path="/dictionary")
 public class DictionaryController {
-
+    @Autowired
     private DictionaryService service;
-
-    public DictionaryController(DictionaryService service) {
-        this.service = service;
-    }
 
     @RequestMapping(value = "/Create",method = RequestMethod.POST)
     public ResponseEntity createDict(@RequestBody String dictionaryJson) {

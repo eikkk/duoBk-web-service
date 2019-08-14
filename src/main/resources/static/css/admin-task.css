@@ -1,0 +1,63 @@
+.hwt-container {
+	background-color: #f8f9fa;
+	width:100%;
+	border: none;
+	margin-top: 15px;
+}
+.hwt-content{
+    height: 80vh;
+    border: none;
+    width:100%;
+}
+.hwt-content mark.red {
+	background-color: #ffc9c9;
+}
+.hwt-content mark.blue {
+	background-color: #a3daff;
+}
+.hwt-content mark.yellow {
+	background-color: #ffec99;
+}
+.hwt-content mark.green {
+	background-color: #90ff90;
+}
+.btn-danger {
+margin-left: 10px;
+}
+.btn-container,
+.undernavTab,
+.history-item,
+#message{
+margin-top:10px;
+}
+
+#historyContainer{
+margin-top: 20px;
+height: 70vh;
+overflow-y: scroll;
+}
+h4{
+text-align: center;
+}
+h5{
+background-color: #f0f0f0;
+padding-left: 10px;
+}
+p{
+padding-left: 20px;
+}
+#message{
+height: 70vh;
+}
+#saveChanges{
+margin-left: 15px;
+}
+#bookImage,
+#authorImage{
+margin-bottom: 10px;
+}
+#biographyArea{
+margin-top: 15px;
+width:100%;
+height:50vh;
+}

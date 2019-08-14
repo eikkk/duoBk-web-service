@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Create Book - DuoBk</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/js/csrf.js"></script>
+    <script type="text/javascript" src="/js/create-book.js"></script>
+    <script type="text/javascript" src="/js/userdata.js"></script>
+</head>
+<body>
+
+<div class="container-fluid" id="formcontainer">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="nav-item nav-link" href="/tasks">Tasks</a>
+                </li>
+                <li>
+                    <a class="nav-item nav-link" href="#">Rules</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item"  href="/admin/books">Books</a>
+                        <a class="dropdown-item"  href="/admin/authors">Authors</a>
+                        <a class="dropdown-item"  href="/admin/tasks">Tasks</a>
+                        <a sec:authorize="hasRole('ROLE_SUPERADMIN')" class="dropdown-item" id="adminUsers" href="/admin/users">Users</a>
+                        <a class="dropdown-item"  href="/admin/books/create">Create Book</a>
+                        <a class="dropdown-item"  href="/admin/tasks/create">Create Task</a>
+                        <a class="dropdown-item" href="/admin/authors/create">Create Author</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown link
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" id="logout">Exit</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <form method="POST"  enctype="multipart/form-data" id="bookCreateForm" autocomplete="off">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input id="name" type="text" aria-describedby="nameHelp" class="form-control" name="title1"/>
+                <small id="nameHelp" class="form-text text-muted">Supported formats: epub, fb2, duoBk.</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 form-group">
+                <label for="authorpicker" id="labelselect">Author:</label>
+                <select title="Choose author..." class="selectpicker" data-live-search="true" id="authorpicker"  name="author1" data-width="100%">
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Image:</label>
+                <input id="image" type="file" aria-describedby="fileHelp" class="form-control-file" name="files"/>
+                <small id="fileHelp" class="form-text text-muted">JPG/JPEG (MAX 500KB)</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <button type="submit" class="btn btn-primary" id="submitBook">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Correcting Sentence Connections</title>
+    <link href="/css/process.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/process-sent.js"></script>
+    <script type="text/javascript" src="/js/csrf.js"></script>
+</head>
+<body>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active"  data-toggle="tab" href="#checking" role="tab" aria-selected="true">Checking</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#correcting" role="tab" aria-selected="false">Correcting</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="checking" role="tabpanel">
+        <div class="container-fluid" >
+            <div class="row textarea-container">
+                <div class="col-sm witharea">
+                    <textarea class="form-control active" id="checkActive1"></textarea>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm witharea">
+                    <textarea class="form-control active" id="checkActive2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid maincontainer" id="checkContainer">
+
+        </div>
+        <div class="container-fluid btn-container">
+            <div class="row">
+                <div class="col-md-1 offset-md-12">
+                    <button id="finishProcess" class="btn btn-primary">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="correcting" role="tabpanel">
+        <div class="container-fluid">
+            <div class="row textarea-container">
+                <div class="col-sm witharea">
+                    <textarea class="form-control active" id="correctingActive1"></textarea>
+                </div>
+                <div class="col-sm witharea">
+                    <textarea class="form-control active" id="correctingActive2"></textarea>
+                </div>
+            </div>
+            <div class="row list-container">
+                <div class="col-sm withlist">
+                    <select multiple  id="book1_list"   class="form-control book_list" size="3">
+                    </select>
+                </div>
+                <div class="col-sm withlist">
+                    <select  multiple id="book2_list" class="form-control book_list" size="3">
+                    </select>
+                </div>
+            </div>
+            <div class=" col-sm row btn-container"  >
+                <button class="btn btn-primary" id="connectSent">Connect</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
