@@ -116,7 +116,7 @@ $(document).ready(function(){
     });
 });
 function getUnprocessed(taskId){
-    var url = "/tasks/process/unprocessedToHTML?id=" + taskId;
+    var url = "/tasks/process/unprocessedToHTML?taskId=" + taskId;
     $.ajax({
         type: "GET",
         url: url,
@@ -201,7 +201,7 @@ function clearSelected(first){
 function checkPermission(taskId){
 $.ajax({
        type: "GET",
-       url: "/tasks/checkPermission?id="+taskId,
+       url: "/tasks/checkPermission?taskId="+taskId,
        error: function(jqXHR, textStatus, errorThrown) {
        console.log(jqXHR.status);
            if (jqXHR.status == 401){

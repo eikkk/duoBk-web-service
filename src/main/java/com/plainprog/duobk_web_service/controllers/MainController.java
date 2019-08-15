@@ -15,4 +15,9 @@ public class MainController {
     public String pickIndexes(){
         return "pre-process.html";
     }
+
+    @RequestMapping("/tasks/process")
+    public String process(){
+        return "process.html";
+    }
 }

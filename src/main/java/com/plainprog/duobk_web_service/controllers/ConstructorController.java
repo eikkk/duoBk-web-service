@@ -84,4 +84,28 @@ public class ConstructorController {
         String email = (String)properties.get("email");
         return constructorService.isUserOwnerOfTask(email,taskId);
     }
+    /**
+     * Forms HTML code from tasks's unprocessed column for displaying inside of process.html
+     * */
+    @RequestMapping(value="/tasks/process/unprocessedToHTML", method = RequestMethod.GET)
+    public ResponseEntity<String> unprocessedToHtml(@RequestParam(value="taskId",required = true) String taskId){
+        return constructorService.unprocessedToHtml(taskId);
+    }
+    /**
+     * Removes dp element from unprocessed column of task
+     * , add all p1 and p2 elements of that dp to bad column of task
+     * @param  index index of dp element
+     * */
+    @RequestMapping(value = "/tasks/process/moveToBad")
+    public void moveToBad(@RequestParam(value = "id",required = true) String id, @RequestParam (value = "index",required =  true) String index){
+        constructorService.moveToBad(id,index);
+    }
+    /**
+     * Forms HTML code for displaying into selects of "Correcting" tab of process.html
+     * Look inside TaskService.formBadResponse(String bad) to see how that code is formed
+     * */
+    @RequestMapping(value = "/tasks/process/getBadResponse")
+    public ResponseEntity<?> getBadResponse(@RequestParam(value = "id",required = true) String taskId){
+        return constructorService.getBadResponse(taskId);
+    }
 }

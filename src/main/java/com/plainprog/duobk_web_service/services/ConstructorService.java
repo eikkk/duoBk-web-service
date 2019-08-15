@@ -68,14 +68,32 @@ public class ConstructorService {
         return response.getBody();
     }
     public ResponseEntity isUserOwnerOfTask(String userEmail, Integer taskId){
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder
-                .append(CONSTRUCTOR_SERVICE_URL)
-                .append("/tasks/checkPermission?taskId=")
-                .append(taskId)
-                .append("&userEmail=")
-                .append(userEmail);
-        ResponseEntity response = restTemplate.getForEntity(urlBuilder.toString(),Object.class);
+        String url = CONSTRUCTOR_SERVICE_URL +
+                "/tasks/checkPermission?taskId=" +
+                taskId +
+                "&userEmail=" +
+                userEmail;
+        ResponseEntity response = restTemplate.getForEntity(url,Object.class);
         return response;
+    }
+    public ResponseEntity<String> unprocessedToHtml(String taskId){
+        String url = CONSTRUCTOR_SERVICE_URL +
+                "/tasks/process/unprocessedToHTML?taskId=" +
+                taskId;
+        return restTemplate.getForEntity(url,String.class);
+    }
+    public void moveToBad(String taskId, String dpIndex){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String body = "";
+        HttpEntity<String> request = new HttpEntity<>(body,headers);
+        String url = CONSTRUCTOR_SERVICE_URL + "/tasks/process/moveToBad?id=" + taskId + "&index=" + dpIndex;
+        restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
+    }
+    public ResponseEntity<String> getBadResponse(String taskId){
+        String url = CONSTRUCTOR_SERVICE_URL +
+                "/tasks/process/getBadResponse?id=" +
+                taskId;
+        return restTemplate.getForEntity(url,String.class);
     }
 }
