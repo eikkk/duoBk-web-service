@@ -1,5 +1,6 @@
 package com.plainprog.duobk_web_service;
 
+import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -21,5 +22,8 @@ public class DuobkWebServiceApplication {
 	RestTemplate restTemplate(){
 		return new RestTemplate();
 	}
+
+	@Bean
+	public Gson getGson(){return new Gson();}
 
 }

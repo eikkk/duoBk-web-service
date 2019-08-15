@@ -10,4 +10,9 @@ public class MainController {
     public String tasks() {
         return "tasks.html";
     }
+
+    @RequestMapping("/tasks/preProcess")
+    public String pickIndexes(){
+        return "pre-process.html";
+    }
 }

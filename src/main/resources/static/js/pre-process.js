@@ -219,7 +219,7 @@ function deleteActiveParagraphsFromUnprocessed(taskId){
 function checkPermission(taskId){
 $.ajax({
        type: "GET",
-       url: "/tasks/checkPermission?id="+taskId,
+       url: "/tasks/checkPermission?taskId="+taskId,
        error: function(jqXHR, textStatus, errorThrown) {
        console.log(jqXHR.status);
            if (jqXHR.status == 401){
