@@ -65,7 +65,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 function requestResult(taskId){
-    var url = "/tasks/getResult?id="+taskId;
+    var url = "/constructor/tasks/getResult?id="+taskId + "&callback=?";
     $.ajax({
               type: "GET",
               url: url,
@@ -80,7 +80,7 @@ function requestResult(taskId){
 }
 
 function updateResult(taskId){
-    var url = "/tasks/updateResult?id="+taskId;
+    var url = "/constructor/tasks/updateResult?id="+taskId + "&callback=?";
     var value = document.getElementById("result").value;
     $.ajax({
         type: "POST",
@@ -100,7 +100,7 @@ function updateResult(taskId){
 function checkPermission(taskId){
 $.ajax({
        type: "GET",
-       url: "/tasks/checkPermission?id="+taskId,
+       url: "/tasks/checkPermission?taskId="+taskId,
        error: function(jqXHR, textStatus, errorThrown) {
        console.log(jqXHR.status);
            if (jqXHR.status == 401){

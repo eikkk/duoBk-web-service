@@ -20,4 +20,9 @@ public class MainController {
     public String process(){
         return "process.html";
     }
+
+    @RequestMapping("/tasks/submit")
+    public String submitTask(){
+        return  "submit-task.html";
+    }
 }

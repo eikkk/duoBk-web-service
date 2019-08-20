@@ -48,26 +48,7 @@ public class ConstructorService {
         HttpEntity<String> request = new HttpEntity<>(body,headers);
         restTemplate.exchange(CONSTRUCTOR_SERVICE_URL + "/tasks/take?email=" + userEmail,HttpMethod.POST,request,Object.class);
     }
-    public void doPreProcess(IndexesForm indexesForm){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String body = gson.toJson(indexesForm);
-        HttpEntity<String> request = new HttpEntity<>(body,headers);
-        restTemplate.exchange(CONSTRUCTOR_SERVICE_URL + "/tasks/preProcess/do" ,HttpMethod.POST, request, Object.class);
-    }
-    public String getUnprocessedAsHTML(Integer taskId){
-        ResponseEntity<String> response = restTemplate.getForEntity(CONSTRUCTOR_SERVICE_URL + "/tasks/preProcess/getUnprocessedAsHTML?id=" + taskId,String.class);
-        return response.getBody();
-    }
-    public boolean checkIfPreProcessWasNotDone(Integer taskId){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String body = gson.toJson(taskId);
-        HttpEntity<String> request = new HttpEntity<>(body,headers);
-        ResponseEntity<Boolean> response = restTemplate.postForEntity(CONSTRUCTOR_SERVICE_URL + "tasks//preProcess/checkUnprocessed",request,Boolean.class);
-        return response.getBody();
-    }
-    public ResponseEntity isUserOwnerOfTask(String userEmail, Integer taskId){
+    public ResponseEntity isUserOwnerOfTask(String userEmail, String taskId){
         String url = CONSTRUCTOR_SERVICE_URL +
                 "/tasks/checkPermission?taskId=" +
                 taskId +
@@ -76,24 +57,12 @@ public class ConstructorService {
         ResponseEntity response = restTemplate.getForEntity(url,Object.class);
         return response;
     }
-    public ResponseEntity<String> unprocessedToHtml(String taskId){
-        String url = CONSTRUCTOR_SERVICE_URL +
-                "/tasks/process/unprocessedToHTML?taskId=" +
-                taskId;
-        return restTemplate.getForEntity(url,String.class);
-    }
-    public void moveToBad(String taskId, String dpIndex){
+    public void submitTask(String userEmail, String taskId, String param){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String body = "";
+        String body = gson.toJson(param);
         HttpEntity<String> request = new HttpEntity<>(body,headers);
-        String url = CONSTRUCTOR_SERVICE_URL + "/tasks/process/moveToBad?id=" + taskId + "&index=" + dpIndex;
+        String url = CONSTRUCTOR_SERVICE_URL + "/tasks/process/submit?id=" + taskId + "&email=" + userEmail;
         restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
-    }
-    public ResponseEntity<String> getBadResponse(String taskId){
-        String url = CONSTRUCTOR_SERVICE_URL +
-                "/tasks/process/getBadResponse?id=" +
-                taskId;
-        return restTemplate.getForEntity(url,String.class);
     }
 }

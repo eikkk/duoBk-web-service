@@ -91,7 +91,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "/tasks/preProcess/do",
+            url: "/constructor/tasks/preProcess/do",
             contentType: "application/json",
             data: JSON.stringify(indexes),
             success: function(textStatus, jqXHR) {
@@ -139,7 +139,7 @@ function findGetParameter(parameterName) {
 function getEntriesDataAjax(taskId){
   $.ajax({
             type: "GET",
-            url: "/tasks/preProcess/getUnprocessedAsHTML?id="+taskId,
+            url: "/constructor/tasks/preProcess/getUnprocessedAsHTML?id="+taskId,
             success: function(data, textStatus, jqXHR) {
                 var book1 = data.split('!separator!')[0];
                 var book2 = data.split('!separator!')[1];
@@ -158,7 +158,7 @@ function checkUnprocessedEmpty(taskId){
             type: "POST",
             data: taskId,
             contentType: "text/plain",
-            url: "/tasks/preProcess/checkUnprocessed",
+            url: "/constructor/tasks/preProcess/checkUnprocessed",
             success: function(data, textStatus, jqXHR) {
                 if(data == false){
                     var r = confirm("This task is already in PROCESS stage.\n If you do pre-process again, all the process progress will be gone");

@@ -30,3 +30,8 @@ security:
 
 duobk:
   superadmins: petrodarchyn@gmail.com, petrodarchyn2@gmail.com, petrodarchyn3@gmail.com
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    constructor-service: /constructor/**

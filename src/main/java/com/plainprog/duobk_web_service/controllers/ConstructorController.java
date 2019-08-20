@@ -57,55 +57,23 @@ public class ConstructorController {
         String email = (String)properties.get("email");
         constructorService.takeTask(email,id);
     }
-    /**
-     * Does auto-connecting process, forms unprocessed from auto-connecting result,
-     * creates HistoryItem, save everything to db
-     * */
-    @RequestMapping(value = "/tasks/preProcess/do")
-    public void doPreProcess(@RequestBody IndexesForm indexesForm) throws Exception {
-        constructorService.doPreProcess(indexesForm);
-    }
-
-    @GetMapping(value = "/tasks/preProcess/getUnprocessedAsHTML")
-    public String getUnprocessedValuesAsHTMLOptions(@RequestParam(value = "id",required = true) Integer taskId) {
-        return  constructorService.getUnprocessedAsHTML(taskId);
-    }
-    /**
-     * If Pre-Process hasn't yet been done on this task(status == NEW), returns true
-     * */
-    @RequestMapping(value = "/tasks/preProcess/checkUnprocessed", consumes = "text/plain")
-    public boolean checkIfPreProcessWasNotDone(@RequestBody Integer taskId){
-        return constructorService.checkIfPreProcessWasNotDone(taskId);
-    }
     @GetMapping(value = "/tasks/checkPermission")
-    public ResponseEntity checkPermission(@RequestParam(value = "taskId", required = true) Integer taskId, OAuth2Authentication authentication){
+    public ResponseEntity checkPermission(@RequestParam(value = "taskId", required = true) String taskId, OAuth2Authentication authentication){
         // get current user
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         String email = (String)properties.get("email");
         return constructorService.isUserOwnerOfTask(email,taskId);
     }
     /**
-     * Forms HTML code from tasks's unprocessed column for displaying inside of process.html
+     * Changes task status to CHECK_NEEDED, sets result value, removes task from user, create HistoryItem
+     * @param taskId ID of task to submit
+     * @param param String in form "result !message! message", where result - new result, message - message for History
      * */
-    @RequestMapping(value="/tasks/process/unprocessedToHTML", method = RequestMethod.GET)
-    public ResponseEntity<String> unprocessedToHtml(@RequestParam(value="taskId",required = true) String taskId){
-        return constructorService.unprocessedToHtml(taskId);
-    }
-    /**
-     * Removes dp element from unprocessed column of task
-     * , add all p1 and p2 elements of that dp to bad column of task
-     * @param  index index of dp element
-     * */
-    @RequestMapping(value = "/tasks/process/moveToBad")
-    public void moveToBad(@RequestParam(value = "id",required = true) String id, @RequestParam (value = "index",required =  true) String index){
-        constructorService.moveToBad(id,index);
-    }
-    /**
-     * Forms HTML code for displaying into selects of "Correcting" tab of process.html
-     * Look inside TaskService.formBadResponse(String bad) to see how that code is formed
-     * */
-    @RequestMapping(value = "/tasks/process/getBadResponse")
-    public ResponseEntity<?> getBadResponse(@RequestParam(value = "id",required = true) String taskId){
-        return constructorService.getBadResponse(taskId);
+    @RequestMapping(value = "/process/submit", consumes = "text/plain")
+    public void submitTask(@RequestParam (value = "id", required = true) String taskId, @RequestBody String param, OAuth2Authentication authentication){
+        // get current user
+        LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+        String email = (String)properties.get("email");
+        constructorService.submitTask(email,taskId,param);
     }
 }

@@ -116,7 +116,7 @@ $(document).ready(function(){
     });
 });
 function getUnprocessed(taskId){
-    var url = "/tasks/process/unprocessedToHTML?taskId=" + taskId;
+    var url = "/constructor/tasks/process/unprocessedToHTML?taskId=" + taskId;
     $.ajax({
         type: "GET",
         url: url,
@@ -156,7 +156,7 @@ function openInNewTab(url) {
 }
 
 function unprocessedToBad(taskId, dpIndex){
-    var url = "/tasks/process/moveToBad?id="+taskId+"&index="+dpIndex;
+    var url = "/constructor/tasks/process/moveToBad?id="+taskId+"&index="+dpIndex;
     $.ajax({
          type: "GET",
          url: url,
@@ -168,7 +168,7 @@ function unprocessedToBad(taskId, dpIndex){
 }
 
 function getBad(taskId){
-    var url = "/tasks/process/getBadResponse?id="+taskId;
+    var url = "/constructor/tasks/process/getBadResponse?id="+taskId;
     $.ajax({
         type: "GET",
         url: url,
