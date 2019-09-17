@@ -8,7 +8,7 @@ $(document).ready(function(){
     //in that case we retrieve our HTML from different endpoint
     if(dpIndex === ""){
         var indexes = JSON.parse(localStorage.getItem("sentIndexes"));
-        var postUrl = "/tasks/process/sent/correcting/do?id=" + taskId;
+        var postUrl = "/constructor/tasks/process/sent/correcting/do?id=" + taskId;
          if(fromProcess == "true")
             postUrl += "&fromBad=true";
          else  postUrl += "&fromBad=false";
@@ -187,7 +187,7 @@ $(document).ready(function(){
             cacheString += "</ds>";
         if(cacheString.includes("<dp"))
             cacheString += "</dp>";
-        var url = "/tasks/process/sent/finish?id=" + taskId;
+        var url = "/constructor/tasks/process/sent/finish?id=" + taskId;
         $.ajax({
             type: "POST",
             url: url,
@@ -228,7 +228,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 function getSentProcessHTML(taskId, dpIndex){
-    var url = "/tasks/process/sent/do?id=" + taskId+"&index="+dpIndex;
+    var url = "/constructor/tasks/process/sent/do?id=" + taskId+"&index="+dpIndex;
     $.ajax({
               type: "GET",
               url: url,

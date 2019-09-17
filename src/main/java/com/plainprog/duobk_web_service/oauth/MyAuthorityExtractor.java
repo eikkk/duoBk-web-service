@@ -1,5 +1,6 @@
 package com.plainprog.duobk_web_service.oauth;
 
+import com.plainprog.duobk_web_service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
@@ -14,15 +15,25 @@ import java.util.Map;
 public class MyAuthorityExtractor implements AuthoritiesExtractor {
     @Value("${duobk.superadmins}")
     private String[] superAdmins;
+    @Autowired
+    UserService userService;
     @Override
     public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
         String mail = (String) map.get("email");
 
-        String authoritiesStr = "ROLE_USER,ROLE_ADMIN,ROLE_SUPERADMIN";
+        String authoritiesStr = userService.getUserAuthorities(mail);
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        if(authoritiesStr.equals(UserService.NO_SUCH_USER)){
+            authoritiesStr = "ROLE_USER";
+            for (String superAdmin : superAdmins) {
+                if (mail.equals(superAdmin))
+                    authoritiesStr = "ROLE_USER,ROLE_ADMIN,ROLE_SUPERADMIN";
+            }
+            userService.createUser(mail,authoritiesStr);
+        }
         String[] stringAuthorities =authoritiesStr.split(",");
-        for(int i =0; i< stringAuthorities.length; i++)
-            authorities.add(new MyGrantedAuthority(stringAuthorities[i]));
+        for (String stringAuthority : stringAuthorities)
+            authorities.add(new MyGrantedAuthority(stringAuthority));
         return authorities;
     }
 }

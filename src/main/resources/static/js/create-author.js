@@ -22,7 +22,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: "/authors/create",
+            url: "/constructor/authors/create",
             data: data,
             // prevent jQuery from automatically transforming the data into a query string
             processData: false,

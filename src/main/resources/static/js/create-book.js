@@ -23,7 +23,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: "/books/create",
+            url: "/constructor/books/create",
             data: data,
             // prevent jQuery from automatically transforming the data into a query string
             processData: false,
@@ -44,7 +44,7 @@ $(document).ready(function() {
 function requestAuthors(){
  $.ajax({
         type: "GET",
-        url: "/authors/getAll",
+        url: "/constructor/authors/getAll",
         success: function(data, textStatus, jqXHR) {
             var select = document.getElementById("authorpicker");
             populateSelect(select, data);

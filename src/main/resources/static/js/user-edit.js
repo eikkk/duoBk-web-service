@@ -20,7 +20,7 @@ function findGetParameter(parameterName) {
 }
 
 function getUserInfoAjax(userId){
-    var url = "/users/getById?id=" + userId;
+    var url = "/constructor/users/getById?id=" + userId;
      $.ajax({
             type: "GET",
             url: url,
@@ -41,7 +41,7 @@ function submitFormData(userId){
     data.append("id", userId);
     $.ajax({
         type: "POST",
-        url: "/users/update",
+        url: "/constructor/users/update",
         data: data,
         processData: false,
         contentType: false,

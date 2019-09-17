@@ -8,6 +8,7 @@ $(document).ready(function() {
                dataType: "json",
                success: function(data, textStatus, jqXHR) {
                     var table = document.getElementById("alltasksTable");
+                    console.log(data);
                     populateTaskTable(table,data, true);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

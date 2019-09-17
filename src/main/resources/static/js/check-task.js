@@ -34,11 +34,12 @@ $(document).ready(function(){
 });
 
 function requestResult(taskId){
-  url = "/tasks/integrateIntoBook?id="+taskId;
+  url = "/constructor/tasks/integrateIntoBook?id="+taskId;
   $.ajax({
          type: "GET",
          url: url,
          success: function(data, textStatus, jqXHR) {
+             console.log(data);
              document.getElementById("result").value = data;
          },
          error: function(jqXHR, textStatus, errorThrown) {
@@ -77,7 +78,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 function getTaskHistory(taskId){
-  var url = "/history/task?id=" + taskId;
+  var url = "/constructor/history/task?id=" + taskId;
   $.ajax({
          type: "GET",
          url: url,

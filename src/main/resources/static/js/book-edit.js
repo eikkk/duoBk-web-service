@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var bookId = findGetParameter("id");
     var img = document.getElementById("bookImage");
-    img.setAttribute("src","/books/getImage?id=" + bookId);
+    img.setAttribute("src","/constructor/books/getImage?id=" + bookId);
     getBookInfoAjax(bookId);
 
     $("#submitBookInfo").on('click',function(){
@@ -50,7 +50,7 @@ function findGetParameter(parameterName) {
 }
 
 function getBookInfoAjax(bookId){
-    var url = "/books/getById?id=" + bookId;
+    var url = "/constructor/books/getById?id=" + bookId;
     $.ajax({
            type: "GET",
            url: url,
@@ -92,7 +92,7 @@ function submitFormData(bookId){
 
     $.ajax({
         type: "POST",
-        url: "/books/update",
+        url: "/constructor/books/update",
         data: data,
         processData: false,
         contentType: false,
@@ -110,11 +110,10 @@ function submitFormData(bookId){
 
 }
 function deleteBook(bookId){
+    var url = "/books/delete?id=" + bookId;
     $.ajax({
         type: "DELETE",
-        url: "/books/delete",
-        contentType: "text/plain",
-        data: bookId,
+        url: url,
         success: function(textStatus, jqXHR) {
             window.location.href = "/admin/books";
         },
@@ -128,7 +127,7 @@ function deleteBook(bookId){
 function requestAuthors(selectedId){
     $.ajax({
            type: "GET",
-           url: "/authors/getAll",
+           url: "/constructor/authors/getAll",
            success: function(data, textStatus, jqXHR) {
                var select = document.getElementById("authorpicker");
                populateSelect(select, data);

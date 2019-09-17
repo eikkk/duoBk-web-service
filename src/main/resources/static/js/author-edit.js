@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var authorId = findGetParameter("id");
     var img = document.getElementById("authorImage");
-    img.setAttribute("src","/authors/image?id=" + authorId);
+    img.setAttribute("src","/constructor/authors/getImage?id=" + authorId);
     getAuthorInfoAjax(authorId);
 
     $("#submitAuthorInfo").on('click',function(){
@@ -25,7 +25,7 @@ function findGetParameter(parameterName) {
 }
 
 function getAuthorInfoAjax(authorId){
-    var url = "/authors/getById?id=" + authorId;
+    var url = "/constructor/authors/getById?id=" + authorId;
     $.ajax({
            type: "GET",
            url: url,
@@ -67,7 +67,7 @@ function submitFormData(authorId){
     var biography = document.getElementById("biographyArea").value;
     data.append("title1", biography);
 
-    var url = "/authors/update?id=" + authorId;
+    var url = "/constructor/authors/update?id=" + authorId;
     $.ajax({
         type: "POST",
         url: url,
@@ -90,7 +90,7 @@ function submitFormData(authorId){
 function deleteAuthor(authorId){
     $.ajax({
         type: "DELETE",
-        url: "/authors/delete",
+        url: "/constructor/authors/delete",
         contentType: "text/plain",
         data: authorId,
         success: function(textStatus, jqXHR) {

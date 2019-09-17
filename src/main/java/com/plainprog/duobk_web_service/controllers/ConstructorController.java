@@ -1,20 +1,16 @@
 package com.plainprog.duobk_web_service.controllers;
 
-import com.plainprog.duobk_web_service.models.IndexesForm;
+import com.plainprog.duobk_web_service.models.Task;
 import com.plainprog.duobk_web_service.oauth.MyGrantedAuthority;
 import com.plainprog.duobk_web_service.services.ConstructorService;
-import com.plainprog.duobk_web_service.services.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -52,7 +48,7 @@ public class ConstructorController {
      * Sets user_id value for task row in db.
      * */
     @RequestMapping(value = "/tasks/take", method = RequestMethod.POST, consumes = "text/plain")
-    public void takeTask(OAuth2Authentication authentication, @RequestBody Integer id){
+    public void takeTask(OAuth2Authentication authentication, @RequestBody String id){
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         String email = (String)properties.get("email");
         constructorService.takeTask(email,id);
@@ -69,11 +65,43 @@ public class ConstructorController {
      * @param taskId ID of task to submit
      * @param param String in form "result !message! message", where result - new result, message - message for History
      * */
-    @RequestMapping(value = "/process/submit", consumes = "text/plain")
+    @RequestMapping(value = "/tasks/process/submit", consumes = "text/plain", method = RequestMethod.POST)
     public void submitTask(@RequestParam (value = "id", required = true) String taskId, @RequestBody String param, OAuth2Authentication authentication){
         // get current user
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         String email = (String)properties.get("email");
         constructorService.submitTask(email,taskId,param);
+    }
+    /**
+     * Updates task status to DONE, updates task's result column, removes task's user and clears unprocessed, bad, creates HistoryItem
+     * */
+    @RequestMapping(value = "/tasks/confirmBook", consumes = "text/plain", method = RequestMethod.POST)
+    public void confirmBook(@RequestParam (value = "id", required = true) String taskId, @RequestBody String resultWithMessage, OAuth2Authentication authentication){
+        // get current user
+        LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+        String email = (String)properties.get("email");
+        constructorService.confirmBook(email,taskId,resultWithMessage);
+    }
+    @RequestMapping(value = "/books/delete")
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    public void delteBook(@RequestParam (value = "id", required = true) String bookID){
+        constructorService.deleteBook(bookID);
+    }
+    @RequestMapping(value = "/tasks/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void delteTask(@RequestParam (value = "id", required = true) String taskId) {
+        constructorService.deleteTask(taskId);
+    }
+    @RequestMapping(value = "/tasks/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void editTask(@ModelAttribute Task task, @RequestParam (value = "id", required = true) String taskId, OAuth2Authentication authentication){
+        LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+        String email = (String)properties.get("email");
+        constructorService.editTask(email,taskId, task);
+    }
+    @RequestMapping(value = "/users/getAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<Object> getAllUsers(){
+        return constructorService.getAllUsers();
     }
 }

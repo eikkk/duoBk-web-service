@@ -200,7 +200,7 @@ function deleteActiveParagraphsFromUnprocessed(taskId){
    var indexes = {start1: ind1, start2: ind2};
    $.ajax({
        type: "POST",
-       url: "/tasks/deleteFromUnprocessed?id="+taskId,
+       url: "/constructor/tasks/deleteFromUnprocessed?id="+taskId,
        contentType: "application/json",
        data: JSON.stringify(indexes),
        success: function(textStatus, jqXHR) {

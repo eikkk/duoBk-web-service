@@ -19,7 +19,7 @@ $(document).ready(function(){
 function requestBooks(){
  $.ajax({
         type: "GET",
-        url: "/books/getAllForMenu",
+        url: "/constructor/books/getAllForMenu",
         success: function(data, textStatus, jqXHR) {
             var table = document.getElementById("allBooksTable");
             populateBookTable(table,data);

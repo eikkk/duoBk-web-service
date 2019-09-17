@@ -97,39 +97,56 @@ $(document).ready(function() {
 });
 
 function ajaxSubmitForm(bookStatus) {
-    // Get form
-    var form = $('#fileUploadForm')[0];
 
-    var data = new FormData(form);
-    data.append("bookStatus", bookStatus)
-    console.log(data);
 
     $("#submitButton").prop("disabled", true);
 
     $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/tasks/create",
-        data: data,
-        // prevent jQuery from automatically transforming the data into a query string
-        processData: false,
-        contentType: false,
-        cache: false,
-        timeout: 1000000,
-        success: function(textStatus, jqXHR) {
-            window.location.href="/admin/tasks";
-        },
+        type: "GET",
+        url: "/users/currentEmail",
+        success: function(data, textStatus, jqXHR) {
+        var url = "/constructor/tasks/create?email="+ data;
+        // Get form
+        var form = $('#fileUploadForm')[0];
+
+        var formData = new FormData(form);
+        formData.append("bookStatus", bookStatus)
+
+        /*var option = $("select option:selected")[0];
+        var bookid = option.getAttribute("value");
+        data.append("book", value)*/
+        console.log(data);
+        $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: url,
+                data: formData,
+                // prevent jQuery from automatically transforming the data into a query string
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 1000000,
+                success: function(textStatus, jqXHR) {
+                    window.location.href="/admin/tasks";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("error, check console for details");
+                    console.log("ERROR : ", jqXHR.responseText);
+                }
+            });
+         },
         error: function(jqXHR, textStatus, errorThrown) {
             alert("error, check console for details");
             console.log("ERROR : ", jqXHR.responseText);
         }
     });
 
+
 }
 function requestBooks(){
  $.ajax({
         type: "GET",
-        url: "/books/getAllForMenu",
+        url: "/constructor/books/getAllForMenu",
         success: function(data, textStatus, jqXHR) {
             var select = document.getElementById("bookpicker");
             populateSelect(select, data);

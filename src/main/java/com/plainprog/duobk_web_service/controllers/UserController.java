@@ -23,4 +23,12 @@ public class UserController {
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         return (String)properties.get("name");
     }
+    /**
+     * Returns email of currently authenticated user
+     * */
+    @RequestMapping(value = "/currentEmail",method = RequestMethod.GET)
+    public String userEmail(OAuth2Authentication authentication) {
+        LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
+        return (String)properties.get("email");
+    }
 }

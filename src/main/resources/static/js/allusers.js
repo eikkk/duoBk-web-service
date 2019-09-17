@@ -17,7 +17,7 @@ $(document).ready(function(){
 function requestUsers(){
  $.ajax({
         type: "GET",
-        url: "/users/getAll",
+        url: "/constructor/users/getAll",
         success: function(data, textStatus, jqXHR) {
             var table = document.getElementById("allUsersTable");
             populateUserTable(table,data);

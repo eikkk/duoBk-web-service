@@ -15,7 +15,7 @@ $(document).ready(function(){
 function requestAuthors(){
  $.ajax({
         type: "GET",
-        url: "/authors/getAllForMenu",
+        url: "/constructor/authors/getAllForMenu",
         success: function(data, textStatus, jqXHR) {
             var table = document.getElementById("allAuthorsTable");
             populateAuthorTable(table,data);

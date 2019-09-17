@@ -92,7 +92,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 function getTaskInfoAjax(taskId){
-    var url = "/tasks/getById?id=" + taskId;
+    var url = "/constructor/tasks/getById?id=" + taskId;
     $.ajax({
            type: "GET",
            url: url,
@@ -117,7 +117,7 @@ function getTaskInfoAjax(taskId){
 function requestBooks(selectedId){
  $.ajax({
         type: "GET",
-        url: "/books/getAllForMenu",
+        url: "/constructor/books/getAllForMenu",
         success: function(data, textStatus, jqXHR) {
             var select = document.getElementById("bookpicker");
             populateSelect(select, data);
@@ -168,11 +168,10 @@ function populateSelectUser(select, arrayData){
     }
 }
 function deleteTask(taskId){
+var url = "/tasks/delete?id=" + taskId;
     $.ajax({
         type: "DELETE",
-        url: "/tasks/delete",
-        contentType: "text/plain",
-        data: taskId,
+        url: url,
         success: function(textStatus, jqXHR) {
             window.location.href = "/admin/tasks";
         },

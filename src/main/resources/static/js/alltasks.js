@@ -25,7 +25,7 @@ $(document).ready(function(){
 function requestTasks(){
  $.ajax({
         type: "GET",
-        url: "/tasks/getAllForMenu",
+        url: "/constructor/tasks/getAllForMenu",
         success: function(data, textStatus, jqXHR) {
             var table = document.getElementById("allTasksTable");
             populateTaskTable(table,data);
