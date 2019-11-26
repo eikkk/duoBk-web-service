@@ -107,4 +107,7 @@ public class MainController {
     @RequestMapping("/admin/authors/edit")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editAuthor(){return  "author-edit.html";}
+
+    @RequestMapping("/duotexts")
+    public String duoTexts(){return  "duotexts.html";}
 }

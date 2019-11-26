@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/dictionary")
+@RequestMapping(path="/dictionaryyyy")
 public class DictionaryController {
     @Autowired
     private DictionaryService service;

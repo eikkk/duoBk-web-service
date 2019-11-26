@@ -35,3 +35,4 @@ zuul:
   ignoredServices: '*'
   routes:
     constructor-service: /constructor/**
+    dictionary-service: /dictionary/**

@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 300px;
+    max-width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 100vh;
+    transition: margin 700ms;
+}
+
+#sidebar.active {
+    margin-left: -300px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -300px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
