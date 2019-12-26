@@ -51,7 +51,7 @@ $(document).ready(function() {
         var startIndexes = JSON.parse(sessionStorage.getItem('indexesStart'));
         var indexes = {start1: startIndexes.indexes1, start2: startIndexes.indexes2, end1: data.indexes1, end2: data.indexes2, taskId: taskId};
         // check if there is no gap between start and end indexes
-        var option = $("#book1_list option[value=\"" + indexes.start1 + "\"]")[0];
+        var option = $("#book1_list option[value=\"" + indexes.start1[0] + "\"]")[0];
         var gapFound = false;
         var gapValue;
         var currValue = option.getAttribute("value");
