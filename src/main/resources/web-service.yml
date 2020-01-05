@@ -36,3 +36,18 @@ zuul:
   routes:
     constructor-service: /constructor/**
     dictionary-service: /dictionary/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000
+
+
+ribbon:
+  ReadTimeout: 60000
+  connection-timeout: 3000
+  eureka:
+    enabled: true
