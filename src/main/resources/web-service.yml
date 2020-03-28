@@ -28,8 +28,8 @@ security:
       userInfoUri: https://www.googleapis.com/userinfo/v2/me
 
 
-duobk:
-  superadmins: petrodarchyn@gmail.com, petrodarchyn2@gmail.com, petrodarchyn3@gmail.com
+#duobk:
+  #superadmins: petrodarchyn@gmail.com, petrodarchyn2@gmail.com, petrodarchyn3@gmail.com
 
 zuul:
   ignoredServices: '*'

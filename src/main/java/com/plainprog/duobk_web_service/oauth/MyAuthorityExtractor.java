@@ -13,8 +13,8 @@ import java.util.Map;
 
 @Service
 public class MyAuthorityExtractor implements AuthoritiesExtractor {
-    @Value("${duobk.superadmins}")
-    private String[] superAdmins;
+    //@Value("${duobk.superadmins}")
+    private String[] superAdmins = {"petrodarchyn@gmail.com", "petrodarchyn2@gmail.com", "petrodarchyn3@gmail.com"};
     @Autowired
     UserService userService;
     @Override
