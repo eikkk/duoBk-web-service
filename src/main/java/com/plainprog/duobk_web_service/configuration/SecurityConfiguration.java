@@ -23,12 +23,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/dictionary/**","/constructor/constants/translation_script**","/constructor/constants/translation_script**","/constructor/author/getBiography**","/constructor/authors/getMenuItems**","/constructor/authors/getImage**","/constructor/books/getImage**","/constructor/books/getContent**","/constructor/books/getBookMenuItems**","/", "/login**", "/webjars/**", "/error**", "/logout**", "/logout/**","/logout")
+                .antMatchers("/constructor/users/loginMobile**","/dictionary/**","/constructor/constants/**","/constructor/constants/translation_script**","/constructor/author/getBiography**","/constructor/authors/getMenuItems**","/constructor/authors/getImage**","/constructor/books/getImage**","/constructor/books/getContent**","/constructor/books/getBookMenuItems**","/", "/login**", "/webjars/**", "/error**", "/logout**", "/logout/**","/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().logout().logoutSuccessUrl("/index").permitAll()
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .and().csrf().disable();//.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
 }
