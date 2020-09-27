@@ -4,7 +4,8 @@ $(document).ready(function(){
     getTaskHistory(taskId);
 
     $('#confirmTask').on('click',function(){
-        updateBookValue(taskId);
+        event.preventDefault();
+        confirmTask(taskId);
     });
 
     $('#result').highlightWithinTextarea({
@@ -39,27 +40,7 @@ function requestResult(taskId){
          type: "GET",
          url: url,
          success: function(data, textStatus, jqXHR) {
-             console.log(data);
              document.getElementById("result").value = data;
-         },
-         error: function(jqXHR, textStatus, errorThrown) {
-             console.log("ERROR : ", jqXHR.responseText);
-         }
-     });
-}
-
-function updateBookValue(taskId){
-  url = "/tasks/confirmBook?id="+taskId;
-  var value = document.getElementById("result").value;
-  var message = document.getElementById("message").value;
-  value += "!message! " + message;
-  $.ajax({
-         type: "POST",
-         url: url,
-         contentType: "text/plain",
-         data: value,
-         success: function(data, textStatus, jqXHR) {
-             window.location.href = "/admin/tasks";
          },
          error: function(jqXHR, textStatus, errorThrown) {
              console.log("ERROR : ", jqXHR.responseText);
@@ -92,7 +73,6 @@ function getTaskHistory(taskId){
 }
 function populateHistory(taskHistory){
     var container = document.getElementById("historyContainer");
-    console.log(taskHistory);
     for(var i = 0; i < taskHistory.length; i++){
         var historyItem = taskHistory[i];
         var itemContainer = document.createElement("div");
@@ -116,4 +96,31 @@ function populateHistory(taskHistory){
         itemContainer.appendChild(userEl);
         container.appendChild(itemContainer);
     }
+}
+
+function confirmTask(taskId){
+    var result = document.getElementById("result").value;
+    var message = document.getElementById("message").value;
+    var objectData =
+             {
+                 result: result,
+                 message: message
+             };
+    var objectDataString = JSON.stringify(objectData);
+    var url = "/tasks/confirmBook?id="+taskId;
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: "application/json",
+        data: objectDataString,
+        success: function(textStatus, jqXHR) {
+             window.location.href = "/admin/tasks";
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert("error, check console for details");
+            console.log("jqXHR : ", jqXHR);
+            console.log("ERROR : ", jqXHR.responseText);
+            console.log("textStatus : ", textStatus);
+        }
+    });
 }

@@ -1,5 +1,6 @@
 package com.plainprog.duobk_web_service.controllers;
 
+import com.plainprog.duobk_web_service.models.SubmitTaskForm;
 import com.plainprog.duobk_web_service.models.Task;
 import com.plainprog.duobk_web_service.oauth.MyGrantedAuthority;
 import com.plainprog.duobk_web_service.services.ConstructorService;
@@ -63,24 +64,24 @@ public class ConstructorController {
     /**
      * Changes task status to CHECK_NEEDED, sets result value, removes task from user, create HistoryItem
      * @param taskId ID of task to submit
-     * @param param String in form "result !message! message", where result - new result, message - message for History
+     * @param submitTaskForm contains edited result, contains message from who did the task
      * */
-    @RequestMapping(value = "/tasks/process/submit", consumes = "text/plain", method = RequestMethod.POST)
-    public void submitTask(@RequestParam (value = "id", required = true) String taskId, @RequestBody String param, OAuth2Authentication authentication){
+    @RequestMapping(value = "/tasks/process/submit", consumes = "application/json", method = RequestMethod.POST)
+    public void submitTask(@RequestParam (value = "id", required = true) String taskId, @RequestBody SubmitTaskForm submitTaskForm, OAuth2Authentication authentication){
         // get current user
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         String email = (String)properties.get("email");
-        constructorService.submitTask(email,taskId,param);
+        constructorService.submitTask(email,taskId,submitTaskForm);
     }
     /**
      * Updates task status to DONE, updates task's result column, removes task's user and clears unprocessed, bad, creates HistoryItem
      * */
-    @RequestMapping(value = "/tasks/confirmBook", consumes = "text/plain", method = RequestMethod.POST)
-    public void confirmBook(@RequestParam (value = "id", required = true) String taskId, @RequestBody String resultWithMessage, OAuth2Authentication authentication){
+    @RequestMapping(value = "/tasks/confirmBook",consumes = "application/json", method = RequestMethod.POST)
+    public void confirmBook(@RequestParam (value = "id", required = true) String taskId, @RequestBody SubmitTaskForm submitTaskForm, OAuth2Authentication authentication){
         // get current user
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) authentication.getUserAuthentication().getDetails();
         String email = (String)properties.get("email");
-        constructorService.confirmBook(email,taskId,resultWithMessage);
+        constructorService.confirmBook(email,taskId,submitTaskForm);
     }
     @RequestMapping(value = "/books/delete")
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")

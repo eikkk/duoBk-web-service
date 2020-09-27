@@ -2,6 +2,10 @@
 spring:
   application:
     name: web-service
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 
 # Discovery Server Access
 eureka:
@@ -12,6 +16,9 @@ eureka:
 # HTTP Server
 server:
   port: 8080   # HTTP (Tomcat) port
+  tomcat:
+      max-http-post-size: 62914562
+      max-swallow-size: 100000000
 
 security:
   oauth2:

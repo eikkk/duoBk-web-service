@@ -2,6 +2,7 @@ package com.plainprog.duobk_web_service.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.plainprog.duobk_web_service.models.SubmitTaskForm;
 import com.plainprog.duobk_web_service.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -56,10 +57,12 @@ public class ConstructorService {
         ResponseEntity response = restTemplate.getForEntity(url,Object.class);
         return response;
     }
-    public void submitTask(String userEmail, String taskId, String param){
+    public void submitTask(String userEmail, String taskId, SubmitTaskForm submitTaskForm){
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
-        HttpEntity<String> request = new HttpEntity<>(param,headers);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(submitTaskForm);
+        HttpEntity<String> request = new HttpEntity<>(jsonBody,headers);
         String url = CONSTRUCTOR_SERVICE_URL + "/tasks/process/submit?id=" + taskId + "&email=" + userEmail;
         restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
     }
@@ -72,10 +75,12 @@ public class ConstructorService {
         String url = CONSTRUCTOR_SERVICE_URL + "/tasks/update?email=" + userEmail;
         restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
     }
-    public void confirmBook(String userEmail, String taskId, String resultWithMessage){
+    public void confirmBook(String userEmail, String taskId, SubmitTaskForm submitTaskForm){
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
-        HttpEntity<String> request = new HttpEntity<>(resultWithMessage,headers);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(submitTaskForm);
+        HttpEntity<String> request = new HttpEntity<>(jsonBody,headers);
         String url = CONSTRUCTOR_SERVICE_URL + "/tasks/confirmBook?id=" + taskId + "&email=" + userEmail;
         restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
     }

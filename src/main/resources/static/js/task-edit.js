@@ -188,8 +188,8 @@ function submitFormData(taskId){
     data.append("id",taskId);
     var unprocessed = document.getElementById("unprocessedText").value;
     var result = document.getElementById("resultText").value;
-    var unprocessed1 = document.getElementById("unprocessed1Text".value);
-    var unprocessed2 = document.getElementById("unprocessed2Text".value);
+    var unprocessed1 = document.getElementById("unprocessed1Text").value;
+    var unprocessed2 = document.getElementById("unprocessed2Text").value;
     data.append("unprocessed", unprocessed);
     data.append("result", result);
     data.append("unprocessed1", unprocessed1);

@@ -4,23 +4,8 @@ $(document).ready(function(){
     requestResult(taskId);
 
     $("#submitTask").on('click', function(){
-            var url = "/tasks/process/submit?id="+taskId;
-            var value = document.getElementById("result").value;
-            var message = document.getElementById("message").value;
-            value += "!message! " + message;
-            $.ajax({
-                      type: "POST",
-                      url: url,
-                      contentType: "text/plain",
-                      data: value,
-                      success: function(data, textStatus, jqXHR) {
-                        window.location.href= "/tasks";
-                      },
-                      error: function(jqXHR, textStatus, errorThrown) {
-                        alert("error, check console for details");
-                        console.log("ERROR : ", jqXHR.responseText);
-                      }
-                   });
+        event.preventDefault();
+        submitFormData(taskId);
     });
 
     $('#saveChanges').on('click', function(){
@@ -116,4 +101,31 @@ $.ajax({
            }
        }
    });
+}
+function submitFormData(taskId){
+    var result = document.getElementById("result").value;
+    var message = document.getElementById("message").value;
+    var objectData =
+             {
+                 result: result,
+                 message: message
+             };
+
+    var objectDataString = JSON.stringify(objectData);
+    console.log(objectDataString)
+    var url = "/tasks/process/submit?id="+taskId;
+    // Display the key/value pairs
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: "application/json",
+        data: objectDataString,
+        success: function(textStatus, jqXHR) {
+              window.location.href= "/tasks";
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert("error, check console for details");
+            console.log("ERROR : ", jqXHR.responseText);
+        }
+    });
 }
