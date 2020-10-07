@@ -15,7 +15,7 @@ eureka:
 
 # HTTP Server
 server:
-  port: 8080   # HTTP (Tomcat) port
+  port: ${DB_PORT} #accidentally named it DB_PORT.
   tomcat:
       max-http-post-size: 62914562
       max-swallow-size: 100000000
