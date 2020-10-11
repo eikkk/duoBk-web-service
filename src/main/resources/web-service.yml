@@ -59,3 +59,18 @@ ribbon:
   connection-timeout: 3000
   eureka:
     enabled: true
+
+---
+
+spring:
+  profiles: production
+security:
+  require-ssl: true
+server:
+  port: 8443
+  port-http: 8080
+  ssl:
+    key-store: /etc/letsencrypt/live/duo-books.com/keystore.p12
+    key-store-password: ${SSL_PASSWORD}
+    keyStoreType: PKCS12
+    keyAlias: tomcat
