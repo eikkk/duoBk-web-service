@@ -15,6 +15,12 @@ public class MainController {
     @RequestMapping("/index")
     public String indexPage(){return  "index.html";}
 
+    @RequestMapping("/privacy-policy")
+    public String privacyPolicy(){return  "privacy-policy.html";}
+
+    @RequestMapping("/terms-conditions")
+    public String termsConditions(){return  "terms-conditions.html";}
+
     @RequestMapping("/tasks")
     public String tasks() {
         return "tasks.html";
