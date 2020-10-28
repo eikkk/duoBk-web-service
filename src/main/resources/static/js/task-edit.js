@@ -101,7 +101,7 @@ function getTaskInfoAjax(taskId){
                document.getElementById("unprocessedText").innerHTML=data.unprocessed;
                document.getElementById("resultText").innerHTML=data.result;
                document.getElementById("unprocessed1Text").innerHTML=data.unprocessed1;
-               document.getElementById("unprocessed2Text").innerHTML=data.unprocessed2;
+               document.getElementById("checkbox_new").checked = data.isNew
                if(data.userId == null)
                 requestUsers(-1);
                else  requestUsers(data.userId);
@@ -194,6 +194,7 @@ function submitFormData(taskId){
     data.append("result", result);
     data.append("unprocessed1", unprocessed1);
     data.append("unprocessed2", unprocessed2);
+    data.append("isNew", document.getElementById("checkbox_new").checked);
 
     $.ajax({
         type: "POST",

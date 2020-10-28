@@ -18,6 +18,7 @@ public class Task {
     private String bad;
     private String unprocessed1;
     private String unprocessed2;
+    private Boolean isNew;
 
 
     public Integer getId() {
@@ -114,5 +115,13 @@ public class Task {
 
     public void setUnprocessed2(String unprocessed2) {
         this.unprocessed2 = unprocessed2;
+    }
+
+    public Boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
     }
 }
