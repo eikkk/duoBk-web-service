@@ -20,6 +20,7 @@ public class MyAuthorityExtractor implements AuthoritiesExtractor {
     @Override
     public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
         String mail = (String) map.get("email");
+        String name = (String) map.get("name");
 
         String authoritiesStr = userService.getUserAuthorities(mail);
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
@@ -29,7 +30,7 @@ public class MyAuthorityExtractor implements AuthoritiesExtractor {
                 if (mail.equals(superAdmin))
                     authoritiesStr = "ROLE_USER,ROLE_ADMIN,ROLE_SUPERADMIN";
             }
-            userService.createUser(mail,authoritiesStr);
+            userService.createUser(mail,authoritiesStr, name);
         }
         String[] stringAuthorities =authoritiesStr.split(",");
         for (String stringAuthority : stringAuthorities)

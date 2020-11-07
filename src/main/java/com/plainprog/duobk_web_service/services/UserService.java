@@ -18,11 +18,12 @@ public class UserService {
     // with Ribbon built-in
     protected RestTemplate restTemplate;
 
-    public void createUser(String userEmail, String userType){
+    public void createUser(String userEmail, String userType, String name){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         Gson gson = new Gson();
         User user = new User(userEmail,userType);
+        user.setName(name);
         HttpEntity<String> request = new HttpEntity<>(gson.toJson(user,User.class),headers);
         String url = CONSTRUCTOR_SERVICE_URL + "/users/create";
         restTemplate.exchange(url,HttpMethod.POST, request, Object.class);
