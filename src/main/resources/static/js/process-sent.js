@@ -158,7 +158,78 @@ $(document).ready(function(){
             cacheString += "</ds>";
             sessionStorage.setItem("ds", cacheString);
     });
-
+    $("#pack").on('click', function(){
+        var dpStr  = "<dp chapter=\"" + chapterIndex + "\"><ds>";
+        var options1 = $('select.first option');
+        var options2 = $('select.second option');
+        for(var i=0; i < options1.length;i++){
+            dpStr += "<s1 pIndex=\"" + options1[i].getAttribute("pIndex") + "\" index=\"" + options1[i].getAttribute("value") + "\">";
+            var myRegexp = /[0-9]+\.  /;
+            dpStr += escapeXml(options1[i].textContent.split(myRegexp).pop()) + "</s1>";
+        }
+        for(var i=0; i < options2.length;i++){
+            dpStr += "<s2 pIndex=\"" + options2[i].getAttribute("pIndex") + "\" index=\"" + options2[i].getAttribute("value") + "\">";
+            var myRegexp = /[0-9]+\.  /;
+            dpStr += escapeXml(options2[i].textContent.split(myRegexp).pop()) + "</s2>";
+        }
+        dpStr += "</ds></dp>";
+        var url = "/constructor/tasks/process/sent/finish?id=" + taskId;
+        console.log(dpStr)
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "text/plain",
+            data: dpStr.replace(/&nbsp;/g, ' '),
+            success: function(textStatus, jqXHR) {
+                  window.close();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("error, check console for details");
+                console.log("ERROR : ", jqXHR.responseText);
+            }
+        });
+    });
+    $("#needle").on('click', function(){
+        var dpStr  = "<dp chapter=\"" + chapterIndex + "\">";
+        var blocks = $('div.connection');
+        console.log(blocks)
+        for(var i=0; i< blocks.length;i++){
+            dpStr += "<ds>"
+            var options1 = $(blocks[i]).find('select.first option')
+            console.log(options1)
+            for(var q=0; q< options1.length;q++){
+                var option = options1[q]
+                dpStr += "<s1 pIndex=\"" + option.getAttribute("pIndex")+ "\" index=\"" + option.getAttribute("value") +"\">";
+                var myRegexp = /[0-9]+\.  /;
+                dpStr += escapeXml(option.textContent.split(myRegexp).pop()) + "</s1>";
+            }
+            var options2 = $(blocks[i]).find('select.second option')
+            console.log(options2)
+            for(var q=0; q< options2.length;q++){
+                var option = options2[q];
+                dpStr += "<s2 pIndex=\"" + option.getAttribute("pIndex")+ "\" index=\"" + option.getAttribute("value") +"\">";
+                var myRegexp = /[0-9]+\.  /;
+                dpStr += escapeXml(option.textContent.split(myRegexp).pop()) + "</s2>";
+            }
+            dpStr += "</ds>";
+        }
+        dpStr += "</dp>";
+        var url = "/constructor/tasks/process/sent/finish?id=" + taskId;
+        console.log(dpStr)
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "text/plain",
+            data: dpStr.replace(/&nbsp;/g, ' '),
+            success: function(textStatus, jqXHR) {
+                  window.close();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("error, check console for details");
+                console.log("ERROR : ", jqXHR.responseText);
+            }
+        });
+    });
     $("#finishProcess").on('click', function(){
         var selects = $("#checkContainer select");
         if(selects.length > 0){

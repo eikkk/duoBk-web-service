@@ -70,6 +70,52 @@ $(document).ready(function(){
       textArea.select();
       document.execCommand("copy");
     });
+    $('.container-fluid').on('click','.btn-secondary',function(){
+        var url = "/constructor/tasks/process/sent/needle?id="+taskId+"&index="+this.id+ "&chapter=" + this.getAttribute("chapter");
+        var divId = "row-connection"+this.id;
+        var div = document.getElementById(divId);
+        var buttons = div.getElementsByTagName("button");
+        console.log("url : ", url);
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true;
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            success: function(data, textStatus, jqXHR) {
+                   if (div) {
+                       div.parentNode.removeChild(div);
+                   }
+             },
+            error: function(jqXHR, textStatus, errorThrown) {
+                    alert("error, check console for details");
+                    console.log("ERROR : ", jqXHR.responseText);
+            }
+        });
+    });
+    $('.container-fluid').on('click','.btn-dark',function(){
+        var url = "/constructor/tasks/process/sent/pack?id="+taskId+"&index="+this.id+ "&chapter=" + this.getAttribute("chapter");
+        var divId = "row-connection"+this.id;
+        var div = document.getElementById(divId);
+        var buttons = div.getElementsByTagName("button");
+        console.log("url : ", url);
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true;
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            success: function(data, textStatus, jqXHR) {
+                   if (div) {
+                       div.parentNode.removeChild(div);
+                   }
+             },
+            error: function(jqXHR, textStatus, errorThrown) {
+                    alert("error, check console for details");
+                    console.log("ERROR : ", jqXHR.responseText);
+            }
+        });
+    });
     $('.container-fluid').on('click','.btn-success',function(){
         var url = "/tasks/process/sent?id="+taskId+"&index="+this.id+ "&chapter=" + this.getAttribute("chapter") + "&fromProcess=true";
         openInNewTab(url);
