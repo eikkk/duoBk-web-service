@@ -1,7 +1,5 @@
 $(document).ready(function(){
     var bookId = findGetParameter("id");
-    var img = document.getElementById("bookImage");
-    img.setAttribute("src","/constructor/books/getImage?id=" + bookId);
     getBookInfoAjax(bookId);
 
     $("#submitBookInfo").on('click',function(){
@@ -56,6 +54,8 @@ function getBookInfoAjax(bookId){
            url: url,
            success: function(data, textStatus, jqXHR) {
                console.log(data);
+               var img = document.getElementById("bookImage");
+               img.setAttribute("src",data.imageURL);
                document.getElementById("name").setAttribute("value",data.name);
                document.getElementById("book-value").innerHTML=data.book;
                requestAuthors(data.authorId);

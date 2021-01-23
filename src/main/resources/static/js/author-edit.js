@@ -1,7 +1,5 @@
 $(document).ready(function(){
     var authorId = findGetParameter("id");
-    var img = document.getElementById("authorImage");
-    img.setAttribute("src","/constructor/authors/getImage?id=" + authorId);
     getAuthorInfoAjax(authorId);
 
     $("#submitAuthorInfo").on('click',function(){
@@ -33,6 +31,8 @@ function getAuthorInfoAjax(authorId){
                document.getElementById("name").setAttribute("value",data.name);
                var date = new Date(data.birthDate);
                console.log(date);
+               var img = document.getElementById("authorImage");
+               img.setAttribute("src",data.imageURL);
                var birthString = ("0" + date.getDate()).slice(-2).toString() + "." + ("0" + (date.getMonth() + 1)).slice(-2) +"."+ date.getFullYear();
                console.log(birthString);
                var date = new Date(data.deathDate);
