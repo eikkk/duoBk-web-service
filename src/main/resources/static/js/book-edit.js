@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var bookId = findGetParameter("id");
     getBookInfoAjax(bookId);
+    getContent(bookId)
 
     $("#submitBookInfo").on('click',function(){
         event.preventDefault();
@@ -57,9 +58,22 @@ function getBookInfoAjax(bookId){
                var img = document.getElementById("bookImage");
                img.setAttribute("src",data.imageURL);
                document.getElementById("name").setAttribute("value",data.name);
-               document.getElementById("book-value").innerHTML=data.book;
                requestAuthors(data.authorId);
                $('#statuspicker').selectpicker('val', data.status);
+           },
+           error: function(jqXHR, textStatus, errorThrown) {
+               alert("error, check console for details");
+               console.log("ERROR : ", jqXHR.responseText);
+           }
+       });
+}
+function getContent(bookId){
+    var url = "/constructor/books/getContent?id=" + bookId;
+    $.ajax({
+           type: "GET",
+           url: url,
+           success: function(data, textStatus, jqXHR) {
+               document.getElementById("book-value").innerHTML=data;
            },
            error: function(jqXHR, textStatus, errorThrown) {
                alert("error, check console for details");
@@ -87,7 +101,7 @@ function submitFormData(bookId){
     var data = new FormData(form);
     data.append("id",bookId);
     var value = document.getElementById("book-value").value;
-    data.append("book", value);
+    data.append("content", value);
 
 
     $.ajax({
