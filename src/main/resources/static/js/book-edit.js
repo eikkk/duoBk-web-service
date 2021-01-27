@@ -11,6 +11,35 @@ $(document).ready(function(){
         deleteBook(bookId);
     });
 
+    $("#addTag").on('click',function(){
+         var h6 = document.getElementById("tags").getElementsByTagName("h6")[0];
+         var input = document.getElementById("newTagInput");
+         if (input.value == ""){
+            return;
+         }
+         var span = document.createElement("span");
+         span.setAttribute("class", "badge badge-secondary");
+         span.innerHTML = input.value;
+         input.value = ""
+
+         var button = document.createElement("span");
+         button.setAttribute("type", "button");
+         button.setAttribute("class", "btn btn-secondary");
+         button.setAttribute("id", "removeTag");
+         button.innerHTML = "x";
+         span.appendChild(button);
+         h6.appendChild(span);
+    });
+    $(document).on('click','#removeTag',function(){
+         var spanInnerText = this.parentElement.innerText;
+         var spans = document.getElementsByClassName("badge");
+         for(var i =0; i < spans.length; i++){
+             if (spans[i] == this.parentElement){
+                 this.parentElement.remove()
+             }
+         }
+    });
+
     $('#book-value').highlightWithinTextarea({
        highlight:
        [
@@ -57,6 +86,7 @@ function getBookInfoAjax(bookId){
                console.log(data);
                var img = document.getElementById("bookImage");
                img.setAttribute("src",data.imageURL);
+               populateTags(data.tags)
                document.getElementById("name").setAttribute("value",data.name);
                requestAuthors(data.authorId);
                $('#statuspicker').selectpicker('val', data.status);
@@ -96,13 +126,22 @@ function submitFormData(bookId){
              return;
          }
     }
-    console.log(imageFile);
     var form = $('#infoForm')[0];
     var data = new FormData(form);
     data.append("id",bookId);
     var value = document.getElementById("book-value").value;
     data.append("content", value);
-
+    var spans = document.getElementsByClassName("badge");
+    var tags="";
+    for(var i =0; i < spans.length; i++){
+        tags = tags + spans[i].innerText + ",";
+    }
+    if (tags.length > 1 && tags.substring(tags.length-1) == ","){
+        tags = tags.substring(0, tags.length - 1);
+    }
+    if (tags.length > 0){
+        data.append("tags", tags);
+    }
 
     $.ajax({
         type: "POST",
@@ -154,7 +193,25 @@ function requestAuthors(selectedId){
            }
     });
 }
-
+function populateTags(tagsString){
+     if(tagsString == null){
+        return;
+     }
+     var h6 = document.getElementById("tags").getElementsByTagName("h6")[0];
+     var words = tagsString.split(',');
+     for(var i =0; i < words.length; i++){
+        var span = document.createElement("span");
+        span.setAttribute("class", "badge badge-secondary");
+        span.innerHTML = words[i];
+        var button = document.createElement("span");
+        button.setAttribute("type", "button");
+        button.setAttribute("class", "btn btn-secondary");
+        button.setAttribute("id", "removeTag");
+        button.innerHTML = "x";
+        span.appendChild(button);
+        h6.appendChild(span);
+    }
+}
 function populateSelect(select, arrayData){
     for(var i =0; i < arrayData.length; i++){
         var option = document.createElement("option");
